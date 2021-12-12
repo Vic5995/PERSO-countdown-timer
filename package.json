@@ -1,0 +1,23 @@
+{
+	"name": "perso-countdown-timer",
+	"version": "1.0.0",
+	"description": "project for my portfolio",
+	"main": "index.js",
+	"scripts": {
+		"build": "tailwind build dist/css/input.css -o dist/css/output.css",
+		"watch": "npx tailwindcss -i ./dist/css/input.css -o ./dist/css/output.css --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Vic5995/PERSO-countdown-timer.git"
+	},
+	"author": "Victoire Lenglart",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Vic5995/PERSO-countdown-timer/issues"
+	},
+	"homepage": "https://github.com/Vic5995/PERSO-countdown-timer#readme",
+	"devDependencies": {
+		"tailwindcss": "^3.0.1"
+	}
+}
