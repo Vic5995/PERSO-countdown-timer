@@ -19,5 +19,8 @@
 	"homepage": "https://github.com/Vic5995/PERSO-countdown-timer#readme",
 	"devDependencies": {
 		"tailwindcss": "^3.0.1"
+	},
+	"dependencies": {
+		"@tailwindcss/forms": "^0.4.0"
 	}
 }
