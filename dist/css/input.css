@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .my-input {
+        @apply border-2 border-indigo-700 rounded p-2 w-full mb-5;
+    }
+    .my-button {
+        @apply bg-gradient-to-r from-blue-700 to-purple-700 rounded px-10 py-2 text-white;
+    }
+    .countdown-item {
+        @apply w-full h-9 leading-9 text-4xl text-center tracking-wider;
+    }
+}
+
