@@ -13,14 +13,17 @@ submitBtn.addEventListener('click', ev => {
     let start = Date.now();
     let remain = (targetDate - start) / 1000;
 
-    let days = remain / 86400;
-    let hours = (remain % 86400) / 3600;
-    let minutes = ((remain % 86400) % 3600) / 60;
-    let seconds = ((remain % 86400) % 3600) % 60;
+    let days = Math.floor(remain / 86400);
+    let hours = Math.floor((remain % 86400) / 3600);
+    let minutes = Math.floor(((remain % 86400) % 3600) / 60);
+    let seconds = Math.floor(((remain % 86400) % 3600) % 60);
 
-    alert(`${days} d ${hours} h ${minutes} m ${seconds} s`)
+    countdownDisplay.children[0].innerHTML = days;
+    countdownDisplay.children[1].innerHTML = hours;
+    countdownDisplay.children[2].innerHTML = minutes;
+    countdownDisplay.children[3].innerHTML = seconds;
 
-
+    countdownDisplay.classList.remove("hidden");
 })
 
 // 1 sec = 1000 ms
