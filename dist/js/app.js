@@ -4,12 +4,15 @@ const timeInput = document.getElementById('time-input');
 const submitBtn = document.getElementById('submit-input');
 const startPauseBtn = document.getElementById('pause-restart-btn');
 const resetBtn = document.getElementById('reset-btn');
-const countdownDisplay = document.getElementById('countdown-display');
+const countdownDisplayer = document.getElementById('countdown-display');
+const countdownDisplayItems = document.querySelectorAll('.countdown-item');
+const countdownDisplayName = document.getElementById('name-display')
 const nameInput = document.getElementById('name-input');
 
 // VARIABLES
 let countdownIntervalID;
 let days, hours, minutes, seconds;
+let remain;
 let running = false;
 
 // FUNCTIONS
@@ -22,26 +25,27 @@ function initDisplay() {
 }
 
 function countdown() {
-    running = true
-    if(seconds === 0 && minutes === 0 && hours === 0 && days === 0) {
+    console.log(remain)
+    if(remain <= 1) {
         clearInterval(countdownIntervalID);
         running = false;
+        alert(`It's time for ${name}`);
     } else {
-        seconds = --seconds < 0 ? 59 : seconds;
-        countdownDisplay.children[4].innerHTML = seconds < 10 ? "0" + seconds : seconds;
-        if (seconds === 59 && minutes !== 0) {
-            minutes = --minutes < 0 && hours !== 0 ? 59 : minutes;
-            countdownDisplay.children[3].innerHTML = minutes < 10 ? "0" + minutes : minutes;
-        }
-        if (minutes === 59 && hours !== 0) {
-            hours = --hours < 0 && days !== 0 ? 23 : hours;
-            countdownDisplay.children[2].innerHTML = hours < 10 ? "0" + hours : hours;
-        }
-        if (hours === 23 && days !== 0) {
-            days = --days;
-            countdownDisplay.children[1].innerHTML = days < 10 ? "0" + days : days;
-        }
+        remain -= 1;
+        displayCountdown();
     }
+}
+
+function displayCountdown() {
+    days = Math.floor(remain / 86400); // 1 j = 24 h = 1440 min = 86400 sec
+    hours = Math.floor((remain % 86400) / 3600); // 1 h = 60 min = 3600 sec
+    minutes = Math.floor(((remain % 86400) % 3600) / 60);  // 1 min = 60 sec
+    seconds = Math.floor(((remain % 86400) % 3600) % 60);
+
+    countdownDisplayItems[0].innerHTML = days < 10 ? "0" + days : days;
+    countdownDisplayItems[1].innerHTML = hours < 10 ? "0" + hours : hours;
+    countdownDisplayItems[2].innerHTML = minutes < 10 ? "0" + minutes : minutes;
+    countdownDisplayItems[3].innerHTML = seconds < 10 ? "0" + seconds : seconds;
 }
 
 function checkDateTimeInput(date, time) {
@@ -59,22 +63,14 @@ submitBtn.addEventListener('click', ev => {
     if (checkDateTimeInput(date, time)) {
         let targetDate = Date.parse(date+"T"+time);
         let start = Date.now();
-        let remain = (targetDate - start) / 1000; // 1 sec = 1000 ms
+        remain = (targetDate - start) / 1000; // 1 sec = 1000 ms
 
-        days = Math.floor(remain / 86400); // 1 j = 24 h = 1440 min = 86400 sec
-        hours = Math.floor((remain % 86400) / 3600); // 1 h = 60 min = 3600 sec
-        minutes = Math.floor(((remain % 86400) % 3600) / 60);  // 1 min = 60 sec
-        seconds = Math.floor(((remain % 86400) % 3600) % 60);
-
-        countdownDisplay.children[0].innerHTML = name === "" ? "" : `COUNTDOWN TO ${name}`
-        countdownDisplay.children[1].innerHTML = days < 10 ? "0" + days : days;
-        countdownDisplay.children[2].innerHTML = hours < 10 ? "0" + hours : hours;
-        countdownDisplay.children[3].innerHTML = minutes < 10 ? "0" + minutes : minutes;
-        countdownDisplay.children[4].innerHTML = seconds < 10 ? "O" + seconds : seconds;
-
+        countdownDisplayName.innerHTML = name === "" ? "" : `COUNTDOWN TO ${name}`;
+        displayCountdown();
+        running = true;
         countdownIntervalID = setInterval(countdown, 1000);
 
-        countdownDisplay.classList.remove("hidden");
+        countdownDisplayer.classList.remove("hidden");
     } else {
         alert("Wrong date and time input");
         initDisplay();
@@ -89,6 +85,7 @@ startPauseBtn.addEventListener('click', ev => {
         startPauseBtn.innerHTML = "START";
     } else {
         countdownIntervalID = setInterval(countdown, 1000);
+        running = true;
         startPauseBtn.innerHTML = "PAUSE";
     }
 })
@@ -97,15 +94,12 @@ resetBtn.addEventListener('click', ev => {
     ev.preventDefault();
     clearInterval(countdownIntervalID);
     running = false;
-    startPauseBtn.innerHTML = "START";
-    countdownDisplay.classList.add("hidden");
+    startPauseBtn.innerHTML = "PAUSE";
+    countdownDisplayer.classList.add("hidden");
     initDisplay();
 })
 
 // MAIN
 initDisplay()
 
-// TODO warning of overflow date ( > 99 days)
-// TODO add an alert when the event is reached
-// TODO responsive design
 
