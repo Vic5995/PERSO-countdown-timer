@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer !</title>
+
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="w-full">
+  <div class="container p-10 mx-auto">
+    <h1 class="text-center md:text-6xl text-3xl font-extralight tracking-wider mb-10 rounded bg-indigo-200">COUNTDOWN TIMER !</h1>
+
+    <form action="" class="flex flex-col sm:w-5/6 md:w-3/4 lg:w-1/2 m-auto mb-10">
+
+      <label for="name-input" class="text-xl">Name of the event :</label>
+      <input id="name-input" type="text" class="form-text my-input">
+
+      <label for="date-input" class="text-xl">Date :</label>
+      <input id="date-input" type="date" class="form-date my-input">
+
+      <label for="time-input" class="text-xl">Time :</label>
+      <input type="time" id="time-input" class="form-time my-input">
+
+      <button id="submit-input" class="my-button m-auto">GO !</button>
+      
+    </form>
+
+    <div id="countdown-display" class="grid gap-3 md:grid-cols-4 grid-cols-1 items-center sm:w-5/6 md:w-3/4 lg:w-1/2 mx-auto hidden">
+      <div id="name-display" class="md:col-span-4 text-center text-3xl font-extralight tracking-wider">TEST</div>
+      <div class="countdown-item"></div>
+      <div class="countdown-item"></div>
+      <div class="countdown-item"></div>
+      <div class="countdown-item"></div>
+      <div class="w-full h-1 bg-blue-700 hidden md:block"></div>
+      <div class="w-full h-1 bg-indigo-700 hidden md:block"></div>
+      <div class="w-full h-1 bg-violet-700 hidden md:block"></div>
+      <div class="w-full h-1 bg-purple-700 hidden md:block"></div>
+      <button id="pause-restart-btn" class="my-button md:col-start-2 md:col-span-2">PAUSE</button>
+      <button id="reset-btn" class="border-2 border-indigo-700 rounded px-10 py-2 text-violet-700 md:col-start-2 md:col-span-2">RESET</button>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
